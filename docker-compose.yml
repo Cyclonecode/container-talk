@@ -24,7 +24,7 @@ services:
     build:
       context: .
       args:
-        - LOCAL_PORT=BAR_PORT
+        - LOCAL_PORT=$BAR_PORT
         - REMOTE_PORT=$FOO_PORT
         - REMOTE_NAME=foo
     container_name: bar
