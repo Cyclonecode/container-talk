@@ -1,38 +1,46 @@
 version: '3'
 services:
-  first:
+  foo:
     build:
       context: .
-      dockerfile: A
       args:
-        - PORT=$A_PORT
-    container_name: first
+        - LOCAL_PORT=$FOO_PORT
+        - REMOTE_PORT=$BAR_PORT
+        - REMOTE_NAME=bar
+    container_name: foo
+    restart: always
     ports:
-     - "$A_PORT:$A_PORT"
+     - "$FOO_PORT:$FOO_PORT"
     environment:
-      - PORT=$A_PORT
-    #depends_on:
-    #  - b
-    #links:
-    #  - b:b
+      - LOCAL_PORT=$FOO_PORT
+      - REMOTE_PORT=$BAR_PORT
+      - REMOTE_NAME=bar
+      - WAIT=$WAIT
     networks:
       main:
         aliases:
-          - first
-  second:
+          - foo
+  bar:
     build:
       context: .
-      dockerfile: B
       args:
-        - PORT=$B_PORT
-    container_name: second
+        - LOCAL_PORT=BAR_PORT
+        - REMOTE_PORT=$FOO_PORT
+        - REMOTE_NAME=foo
+    container_name: bar
+    restart: always
     ports:
-      - "$B_PORT:$B_PORT"
+      - "$BAR_PORT:$BAR_PORT"
     environment:
-      - PORT=$B_PORT
+      - LOCAL_PORT=$BAR_PORT
+      - REMOTE_PORT=$FOO_PORT
+      - REMOTE_NAME=foo
+      - WAIT=$WAIT
     networks:
       main:
         aliases:
-          - second
+          - bar
+    depends_on:
+      - foo
 networks:
   main:
