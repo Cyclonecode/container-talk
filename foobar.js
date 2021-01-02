@@ -19,17 +19,20 @@ const server = net.createServer((socket) => {
         console.log(`Listening on ${process.env.LOCAL_PORT}`);
     });
 
-socket.connect(process.env.REMOTE_PORT, process.env.REMOTE_NAME, () => {
-    socket.write('ping');
+// We need to wait a while for both servers to be up before trying to connect.
+setTimeout(() => {
+    socket.connect(process.env.REMOTE_PORT, process.env.REMOTE_NAME, () => {
+        socket.write('ping');
 
-    socket.on('data', (data) => {
-        console.log(`Received: ${data.toString()} from ${process.env.REMOTE_NAME}:${process.env.REMOTE_PORT}`);
-        setTimeout(() => {
-            console.log(`Sending ping to ${socket.remoteAddress}:${socket.remotePort}`)
-            socket.write('ping');
-        }, process.env.WAIT);
+        socket.on('data', (data) => {
+            console.log(`Received: ${data.toString()} from ${process.env.REMOTE_NAME}:${process.env.REMOTE_PORT}`);
+            setTimeout(() => {
+                console.log(`Sending ping to ${socket.remoteAddress}:${socket.remotePort}`)
+                socket.write('ping');
+            }, process.env.WAIT);
+        });
+        socket.on('error', (error) => {
+            console.log('error', error);
+        });
     });
-    socket.on('error', (error) => {
-        console.log('error', error);
-    });
-});
+}, process.env.WAIT);
