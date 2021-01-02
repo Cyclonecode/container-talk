@@ -13,8 +13,8 @@
     "exec:foo": "docker-compose exec foo /bin/bash",
     "exec:bar": "docker-compose exec bar /bin/bash"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Krister Andersson <cyclonecode@gmail.com>",
+  "license": "GNU GPLv3",
   "repository": "git@github.com:Cyclonecode/container-talk.git",
   "dependencies": {}
 }
