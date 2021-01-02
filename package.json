@@ -4,7 +4,14 @@
   "description": "Example of two services talking over a socket.",
   "main": "foobar.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "docker-compose build",
+    "logs:foo": "docker-compose logs -f foo || true",
+    "logs:bar": "docker-compose logs -f bar || true",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down",
+    "exec:foo": "docker-compose exec foo /bin/bash",
+    "exec:bar": "docker-compose exec bar /bin/bash"
   },
   "author": "",
   "license": "ISC",

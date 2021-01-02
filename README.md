@@ -20,6 +20,31 @@ Follow logs for service bar.
     docker-compose down
 Stop service foo and bar.
 
+## Shortcuts
+
+For convenience there are a couple of npm scripts that can be used:
+
+    npm run build
+Build service foo and bar.
+
+    npm run logs:foo
+Follow logs for service foo.
+
+    npm run logs:bar
+Follow logs for service bar.
+
+    npm run exec:foo
+Run a shell in foo.
+
+    npm run exec:bar
+Run a shell in bar.
+
+    npm up
+Start service foo and bar.
+
+    npm down
+Stop service foo and bar.
+
 ## Environment
 
 Create a `.env` file with the following:
