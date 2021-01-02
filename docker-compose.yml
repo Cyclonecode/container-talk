@@ -1,0 +1,38 @@
+version: '3'
+services:
+  first:
+    build:
+      context: .
+      dockerfile: A
+      args:
+        - PORT=$A_PORT
+    container_name: first
+    ports:
+     - "$A_PORT:$A_PORT"
+    environment:
+      - PORT=$A_PORT
+    #depends_on:
+    #  - b
+    #links:
+    #  - b:b
+    networks:
+      main:
+        aliases:
+          - first
+  second:
+    build:
+      context: .
+      dockerfile: B
+      args:
+        - PORT=$B_PORT
+    container_name: second
+    ports:
+      - "$B_PORT:$B_PORT"
+    environment:
+      - PORT=$B_PORT
+    networks:
+      main:
+        aliases:
+          - second
+networks:
+  main:
