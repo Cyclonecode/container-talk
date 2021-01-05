@@ -9,6 +9,14 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 #ifndef LOCAL_PORT
 #define LOCAL_PORT 2048
 #endif
@@ -76,8 +84,8 @@ void* serverThread(void* args) {
         do {
             read = recv(csock, data, 1024, 0);
             if (strncmp(data, "ping", 4) == 0) {
-                printf("Server: Received ping request from %s:%d\n", inet_ntoa(*(struct in_addr*)&caddr.sin_addr.s_addr), ntohs(caddr.sin_port));
-                printf("Server: Sending pong to client %s:%d\n", inet_ntoa(*(struct in_addr*)&caddr.sin_addr.s_addr), ntohs(caddr.sin_port));
+                printf(ANSI_COLOR_GREEN "Server: Received ping request from %s:%d\n", inet_ntoa(*(struct in_addr*)&caddr.sin_addr.s_addr), ntohs(caddr.sin_port));
+                printf(ANSI_COLOR_GREEN "Server: Sending pong to client %s:%d\n", inet_ntoa(*(struct in_addr*)&caddr.sin_addr.s_addr), ntohs(caddr.sin_port));
                 usleep(WAIT);
                 sent = send(csock, "pong", 4, 0);
             }
@@ -141,11 +149,11 @@ void* clientThread(void* args) {
     int sent = 0;
     int read = 0;
     do {
-        printf("Client: Sending ping to %s:%d\n", inet_ntoa(*(struct in_addr*)&saddr.sin_addr.s_addr), ntohs(saddr.sin_port));
+        printf(ANSI_COLOR_YELLOW "Client: Sending ping to %s:%d\n", inet_ntoa(*(struct in_addr*)&saddr.sin_addr.s_addr), ntohs(saddr.sin_port));
         sent = send(csock, "ping", 4, 0);
         usleep(WAIT);
         read = recv(csock, data, 1024, 0);
-        printf("Client: Received %s from %s:%d\n", data, inet_ntoa(*(struct in_addr*)&saddr.sin_addr.s_addr), ntohs(saddr.sin_port));
+        printf(ANSI_COLOR_YELLOW "Client: Received %s from %s:%d\n", data, inet_ntoa(*(struct in_addr*)&saddr.sin_addr.s_addr), ntohs(saddr.sin_port));
         fflush(stdout);
         usleep(WAIT);
     } while(sent == 4 && read == 4);

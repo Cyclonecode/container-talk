@@ -12,6 +12,7 @@ services:
     restart: always
     ports:
      - "$FOO_PORT:$FOO_PORT"
+    tty: true
   bar:
     build:
       context: .
@@ -24,5 +25,6 @@ services:
     restart: always
     ports:
       - "$BAR_PORT:$BAR_PORT"
+    tty: true
     depends_on:
       - foo
