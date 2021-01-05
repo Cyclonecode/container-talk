@@ -1,7 +1,7 @@
-# Example of two containers that can access each other
+# Container communication
 
-This is achieved by setting up different network aliases for each container
-and then use this alias to establishing connections.
+An example of two containers running both a client and server, continuously
+sending ping and pong to each other.
 
 ## Running
 
@@ -47,11 +47,10 @@ Stop service foo and bar.
 
 ## Environment
 
-Create a `.env` file with the following:
+Environment variables can be added to a `.env` file.
 
-    # Server port for 'foo' service
-    FOO_PORT=2048
-    # Server port for 'bar' service
-    BAR_PORT=8000
-    # Delay between write calls on socket
-    WAIT=1500
+| Name          | Description        | Example      |
+| ------------- |:------------------:|:-------------:
+| FOO_PORT      | foo server port    | 2048         |
+| BAR_PORT      | bar server port    | 8000         |
+| WAIT          | delay between send | 1500         |

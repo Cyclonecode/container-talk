@@ -4,8 +4,8 @@ const socket = new net.Socket();
 const server = net.createServer((socket) => {
     socket.on('data', (data) => {
         if (data.toString() === 'ping') {
-            console.log(`Received ping from client ${socket.remoteAddress}:${socket.remotePort}.`);
-            console.log(`Sending pong to client ${socket.remoteAddress}:${socket.remotePort}.`);
+            console.log(`Server: Received ping from client ${socket.remoteAddress}:${socket.remotePort}.`);
+            console.log(`Server: Sending pong to client ${socket.remoteAddress}:${socket.remotePort}.`);
             setTimeout(() => {
                 socket.write('pong');
             }, process.env.WAIT);
@@ -16,7 +16,7 @@ const server = net.createServer((socket) => {
     });
 })
     .listen(process.env.LOCAL_PORT, '0.0.0.0', () => {
-        console.log(`Listening on ${process.env.LOCAL_PORT}`);
+        console.log(`Listening on 0.0.0.0:${process.env.LOCAL_PORT}`);
     });
 
 // We need to wait a while for both servers to be up before trying to connect.
@@ -25,9 +25,9 @@ setTimeout(() => {
         socket.write('ping');
 
         socket.on('data', (data) => {
-            console.log(`Received: ${data.toString()} from ${process.env.REMOTE_NAME}:${process.env.REMOTE_PORT}`);
+            console.log(`Client: Received ${data.toString()} from ${process.env.REMOTE_NAME}:${process.env.REMOTE_PORT}`);
             setTimeout(() => {
-                console.log(`Sending ping to ${socket.remoteAddress}:${socket.remotePort}`)
+                console.log(`Client: Sending ping to ${socket.remoteAddress}:${socket.remotePort}`)
                 socket.write('ping');
             }, process.env.WAIT);
         });

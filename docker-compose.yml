@@ -7,6 +7,7 @@ services:
         - LOCAL_PORT=$FOO_PORT
         - REMOTE_PORT=$BAR_PORT
         - REMOTE_NAME=bar
+        - WAIT=$WAIT
     container_name: foo
     restart: always
     ports:
@@ -16,10 +17,6 @@ services:
       - REMOTE_PORT=$BAR_PORT
       - REMOTE_NAME=bar
       - WAIT=$WAIT
-    networks:
-      main:
-        aliases:
-          - foo
   bar:
     build:
       context: .
@@ -27,6 +24,7 @@ services:
         - LOCAL_PORT=$BAR_PORT
         - REMOTE_PORT=$FOO_PORT
         - REMOTE_NAME=foo
+        - WAIT=$WAIT
     container_name: bar
     restart: always
     ports:
@@ -36,11 +34,5 @@ services:
       - REMOTE_PORT=$FOO_PORT
       - REMOTE_NAME=foo
       - WAIT=$WAIT
-    networks:
-      main:
-        aliases:
-          - bar
     depends_on:
       - foo
-networks:
-  main:
