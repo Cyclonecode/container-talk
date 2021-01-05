@@ -9,8 +9,9 @@ EXPOSE $LOCAL_PORT
 
 WORKDIR /usr/src/app
 
+COPY makefile .
 COPY app.c .
 
-RUN cc -D WAIT=$WAIT -D LOCAL_PORT=$LOCAL_PORT -D REMOTE_PORT=$REMOTE_PORT -D REMOTE_NAME=\"$REMOTE_NAME\" -o app app.c -lc -lpthread
+RUN make app
 
 CMD ["./app"]
