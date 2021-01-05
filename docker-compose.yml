@@ -17,6 +17,7 @@ services:
       - REMOTE_PORT=$BAR_PORT
       - REMOTE_NAME=bar
       - WAIT=$WAIT
+    tty: true
   bar:
     build:
       context: .
@@ -34,5 +35,6 @@ services:
       - REMOTE_PORT=$FOO_PORT
       - REMOTE_NAME=foo
       - WAIT=$WAIT
+    tty: true
     depends_on:
       - foo

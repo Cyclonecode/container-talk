@@ -16,5 +16,7 @@
   "author": "Krister Andersson <cyclonecode@gmail.com>",
   "license": "GPL-3.0-or-later",
   "repository": "git@github.com:Cyclonecode/container-talk.git",
-  "dependencies": {}
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }

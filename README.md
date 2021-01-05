@@ -27,6 +27,9 @@ For convenience there are a couple of npm scripts that can be used:
     npm run build
 Build service foo and bar.
 
+    npm run build -- --no-cache
+Build service without using cache.
+
     npm run logs:foo
 Follow logs for service foo.
 
